@@ -25,6 +25,25 @@ function _link($action = ""){
     endif;
     return $url;
 }
+
+
+ /**
+ * generates url link for 
+ * @param string 'post' or 'get', 'p' or 'g'
+ * @param string optional key  $key
+ * @return bool true or false
+ */
+function _link_custom($action = ""){
+    
+    if(trim($action) == '') : 
+        $url ='?';
+    elseif(trim($action)== '#'):
+        $url ='#';
+    else:
+        $url = "$action";
+    endif;
+    return $url;
+}
  //checks if post or get value is not null
  /**
  * Check for get post in requests
