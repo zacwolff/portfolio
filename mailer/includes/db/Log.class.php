@@ -8,12 +8,12 @@
 	class Log {
 			
 		    # @string, Log directory name
-		    	private $path = '/logs/';
+		    	private $path = 'logs/';
 			
 		    # @void, Default Constructor, Sets the timezone and path of the log files.
-			public function __construct() {
+			public function __construct($path = "") {
 				date_default_timezone_set('Europe/Amsterdam');	
-				$this->path  = dirname(__FILE__)  . $this->path;	
+				$this->set_path($path);	
 			}
 			
 		   /**
@@ -65,6 +65,19 @@
 				$logcontent = "Time : " . $date->format('H:i:s')."\r\n" . $message ."\r\n\r\n";
 				$logcontent = $logcontent . file_get_contents($log);
 				file_put_contents($log, $logcontent);
-			    }
+				}
+				
+				function set_path($path = ''){
+					if(trim($path) != ''){
+						$this->path = $path;
+					}
+					else{
+						$this->path  = rtrim(dirname(__FILE__), '/').'/' . $this->path;
+					}
+				}
+
+				function get_path(){
+					return $this->path;
+				}
 		}
 ?>

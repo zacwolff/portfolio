@@ -164,6 +164,10 @@ class Crud {
 		if($field)
 		return $this->db->single("SELECT count(" . $field . ")" . " FROM " . $this->table);
 	}	
+
+	public function query($query){
+		return $this->db->query($query);
+	}
 	
 
 	private function exec($sql, $array = null) {

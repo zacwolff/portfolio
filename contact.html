@@ -242,14 +242,14 @@
                         <!-- Contact Form -->
                         <div class="c-form">
 
-                            <form action="/" method="post">
+                            <form id="sendmsg" action="mailer/?action=sendmsg" method="post">
 
                                 <!-- Form Field -->
                                 <div class="field-wrap">
                                     <label>
                                         Name
                                     </label>
-                                    <input placeholder="Who are you?" type="text" required autocomplete="off" />
+                                    <input name="name" placeholder="Who are you?" type="text" required autocomplete="off" />
                                 </div>
                                 <!--/ Form Field -->
 
@@ -267,7 +267,7 @@
                                     <label>
                                         Phone
                                     </label>
-                                    <input placeholder="If you want me to call you" type="text" required autocomplete="off" />
+                                    <input name="phone" placeholder="If you want me to call you" type="text" autocomplete="off" />
                                 </div>
                                 <!--/ Form Field-->
 
@@ -276,7 +276,7 @@
                                     <label>
                                         Subject
                                     </label>
-                                    <input placeholder="This can be just love." type="text" required autocomplete="off" />
+                                    <input name="subject" placeholder="This can be just love." type="text" required autocomplete="off" />
                                 </div>
                                 <!--/ Form Field -->
 
@@ -285,13 +285,13 @@
                                     <label>
                                         Your message
                                     </label>
-                                    <textarea rows="8" placeholder="Looking forward for your precious words.."></textarea>
+                                    <textarea rows="8" name="message" required placeholder="Looking forward for your precious words.."></textarea>
                                 </div>
                                 <!--/ Form Field (Textarea)-->
 
                                 <!-- Checkbox -->
                                 <div class="privacy-wrap">
-                                    <input type="checkbox" />
+                                    <input name="subscribed" type="checkbox" />
                                     <span>Subscribe to my newsletter</span>
                                 </div>
                                 <!--/ Checkbox -->
@@ -380,6 +380,23 @@
     <script src="js/scripts.js "></script>
     <script src="js/jquery.smoothState.js "></script>
     <script src="js/page-transitions.js "></script>
+
+    <script>
+        $(function(){
+            $("form#sendmsg").submit(function(){
+                var f = $(this);
+               var action = f.attr("action");
+                $.post(action, f.serialize(), function (response) {
+                    response = unescape(response);
+                    alert(response);
+                         // $me.html($resp);
+                });
+                return false;
+            });
+            
+        });
+            
+    </script>
 </body>
 
 </html>

@@ -3,6 +3,7 @@ ini_set('display_error', 1);
 include './includes/const.php';
 include './includes/fxns.php';
 include './includes/settings.php';
+include './includes/db/easyCRUD/mailerModel.php';
 
 require './vendor/phpmailer/phpmailer/src/Exception.php';
 require './vendor/phpmailer/phpmailer/src/PHPMailer.php';
@@ -10,8 +11,6 @@ require './vendor/phpmailer/phpmailer/src/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-include './includes/db/mailerModel.php';
 
 
 
@@ -22,11 +21,12 @@ include 'vendor/autoload.php';
 
 switch($action){
     case "sendmsg":
+        $Log = new Log;
+        $MailerModel = new Mailer;
 
         if($_POST){
             $info = $_POST;
-            print_r($info);
-            print_r($config['mailer']);
+           
 
             //Setting Up PHPMailer
             $mail = new PHPMailer();
@@ -46,17 +46,37 @@ switch($action){
             $mail->Body = $info['message'];
 
             if($mail->send()){
-                echo 'Message has been sent';
+
+                $MailerModel->email = $info['email'];
+                $MailerModel->name = $info['name'];
+                $MailerModel->phone = $info['phone'];
+                
+                if(isset($info['subscribed']) && $info['subscribed']== 'on')
+                {$MailerModel->subscribed = '1';}
+
+                    $sub = $MailerModel->query("SELECT email, id FROM subscriptions WHERE email = '$info[email]'");
+                    if(isset($sub[0])){
+                        $MailerModel->save($sub[0]['id']);
+                }else{
+                        $MailerModel->create();
+                    }
+
+                $response = $config['messages']['success'];
+                $code = 200;
             }else{
-                echo 'Message could not be sent.';
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
+                $response = $config['messages']['error'];
+                $code = 422;
+                $Log->write('Mailer Error: ' . $mail->ErrorInfo);
             }
             
         }
         
         if(IS_AJAX){
-            return json_response("Message sent");
+            echo json_response($response, $code);
+            return;
         }
+
+    
 
        
         
