@@ -388,7 +388,7 @@
                var action = f.attr("action");
                 $.post(action, f.serialize(), function (response) {
                     response = unescape(response);
-                    alert(response);
+                    console.log(response);
                          // $me.html($resp);
                 });
                 return false;
