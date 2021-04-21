@@ -12,6 +12,7 @@ $config =
             'smtp_in' => 993,
             'smtp_out' => 465,
             'pop' => 995,
+            'user' => 'admin@zacwolff.com',
             'pass' => ''
         ],
 
