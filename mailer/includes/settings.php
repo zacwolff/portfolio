@@ -6,7 +6,13 @@ $config =
             'host' => '',
             'from' => 'studio@zacwolff.com',
             'name' => 'Zac Wolff',
-            'reply' => 'studio@zacwolff.com'
+            'reply' => 'studio@zacwolff.com',
+            'incoming' => 'zacwolff.com',
+            'outgoing' => 'zacwolff.com',
+            'smtp_in' => 993,
+            'smtp_out' => 465,
+            'pop' => 995,
+            'pass' => ''
         ],
 
         'messages' => [

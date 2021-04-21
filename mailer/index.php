@@ -12,11 +12,12 @@ require './vendor/phpmailer/phpmailer/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+echo "Hi";
 
 
 include 'vendor/autoload.php';
 
-@$action = empty($_GET['action']) ? 'default' : $_GET['action'];
+$action = empty($_GET['action']) ? 'default' : $_GET['action'];
 
 
 switch($action){
@@ -50,7 +51,7 @@ switch($action){
                 $MailerModel->email = $info['email'];
                 $MailerModel->name = $info['name'];
                 $MailerModel->phone = $info['phone'];
-                
+
                 if(isset($info['subscribed']) && $info['subscribed']== 'on')
                 {$MailerModel->subscribed = '1';}
 
@@ -58,8 +59,8 @@ switch($action){
                     if(isset($sub[0])){
                         $MailerModel->save($sub[0]['id']);
                 }else{
-                        $MailerModel->create();
-                    }
+                $MailerModel->create();
+                }
 
                 $response = $config['messages']['success'];
                 $code = 200;
@@ -71,15 +72,8 @@ switch($action){
             
         }
         
-        if(IS_AJAX){
+  
             echo json_response($response, $code);
-            return;
-        }
-
-    
-
-       
-        
     break;
 
     default:
