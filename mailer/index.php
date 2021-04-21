@@ -32,12 +32,12 @@ switch($action){
             //Setting Up PHPMailer
             $mail = new PHPMailer();
             $mail->isSMTP();
-            $mail->Host = 'smtp.outlook.com';
+            $mail->Host = $config['mailer']['outgoing'];
             $mail->SMTPAuth = true;
-            $mail->Username = ''; 
-            $mail->Password = ''; 
+            $mail->Username = $config['mailer']['user']; 
+            $mail->Password = $config['mailer']['pass']; 
             $mail->SMTPSecure = 'tls';
-            $mail->Port = 2525;
+            $mail->Port = $config['mailer']['smtp_out'];
             $mail->isHTML(true);
 
             $mail->setFrom($config['mailer']['from'], $config['mailer']['name']);
