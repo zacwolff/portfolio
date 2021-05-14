@@ -13,7 +13,7 @@ $config =
             'smtp_out' => 465,
             'pop' => 995,
             'user' => 'admin@zacwolff.com',
-            'pass' => ''
+            'pass' => 'cEmdog-vabdaq-wepwy2'
         ],
 
         'messages' => [
